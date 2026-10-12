@@ -1,23 +1,29 @@
 import axios from 'axios';
 
-// Spring Boot Backend Base URL
-const API_BASE_URL = 'http://localhost:8080/api';
+// Spring Boot Backend Base URL configured via Vite Environment Variable
+// If VITE_API_URL is provided (e.g. 'https://my-backend.onrender.com'), it will be used.
+// Otherwise, it defaults to 'http://localhost:8080'.
+const RAW_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const CLEAN_URL = RAW_URL.replace(/\/+$/, ''); // Remove trailing slash if present
+export const API_BASE_URL = CLEAN_URL.endsWith('/api') ? CLEAN_URL : `${CLEAN_URL}/api`;
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 8000,
+  timeout: 15000,
 });
 
 // Authentication APIs
 export const authApi = {
   login: async (credentials) => {
+    // Equivalent to axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, credentials)
     const response = await apiClient.post('/auth/login', credentials);
     return response.data;
   },
   register: async (userData) => {
+    // Equivalent to axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, userData)
     const response = await apiClient.post('/auth/register', userData);
     return response.data;
   },
