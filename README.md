@@ -1,6 +1,6 @@
 # 🎓 Student Task & Assignment Management System
 
-A beginner-friendly, full-stack college Technical Training project built with **React.js, Java, Spring Boot, MySQL, and Maven**.
+A beginner-friendly, full-stack college Technical Training project built with **React.js, Java, Spring Boot, PostgreSQL, and Maven**.
 
 ---
 
@@ -16,7 +16,7 @@ The **Student Task & Assignment Management System** is designed to streamline ac
 ## 🛠️ Technology Stack
 - **Frontend**: React.js 18, Vite, Axios, Custom Modern Responsive CSS (Inter typography, modal dialogs, status badges).
 - **Backend**: Java 17+, Spring Boot 3.3.4, Spring Data JPA (Hibernate), Maven.
-- **Database**: MySQL 8.0+ (InnoDB, Relational Schema with Foreign Keys).
+- **Database**: PostgreSQL 15+ (Relational Schema with Foreign Keys & Identity Sequences).
 - **Architecture**: 4-Tier Layered Architecture (`Controller` -> `Service` -> `Repository` -> `Entity`).
 
 ---
@@ -52,7 +52,7 @@ tt project/
 │   │       ├── AssignmentService.java
 │   │       └── SubmissionService.java
 │   └── src/main/resources/
-│       └── application.properties                   # MySQL connection & JPA config
+│       └── application.properties                   # PostgreSQL connection & JPA config
 ├── frontend/
 │   ├── package.json
 │   ├── vite.config.js
@@ -73,28 +73,27 @@ tt project/
 │           ├── StudentDashboard.jsx                 # Task submission & grades
 │           ├── TeacherDashboard.jsx                 # Assignment CRUD & grading
 │           └── StudentManagement.jsx                # Student records CRUD
-└── database_setup.sql                               # MySQL schema & initial sample data
+└── database_setup.sql                               # PostgreSQL schema & initial sample data
 ```
 
 ---
 
 ## 🚀 Step-by-Step Setup & Run Instructions
 
-### Step 1: Set Up MySQL Database
-1. Open your MySQL client (MySQL Workbench, MySQL Command Line, or Terminal).
+### Step 1: Set Up PostgreSQL Database
+1. Open your PostgreSQL client (pgAdmin, psql CLI, or Render PostgreSQL Query dashboard).
 2. Execute the script provided in [`database_setup.sql`](file:///Users/kesaramaashritha/tt%20project/database_setup.sql):
    ```bash
-   mysql -u root -p < database_setup.sql
+   psql -U postgres -d student_task_management -f database_setup.sql
    ```
-   *Or open MySQL Workbench, load `database_setup.sql`, and click **Execute (⚡)**.*
+   *Or open pgAdmin / DBeaver, load `database_setup.sql`, and execute it.*
 
 3. Verify the database credentials in [`backend/src/main/resources/application.properties`](file:///Users/kesaramaashritha/tt%20project/backend/src/main/resources/application.properties):
    ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/student_task_management?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-   spring.datasource.username=root
-   spring.datasource.password=YOUR_MYSQL_PASSWORD
+   spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/student_task_management}
+   spring.datasource.username=${SPRING_DATASOURCE_USERNAME:postgres}
+   spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:postgres}
    ```
-   *(Replace `YOUR_MYSQL_PASSWORD` with your actual local MySQL password).*
 
 ---
 
@@ -170,7 +169,7 @@ You can use the built-in quick-fill buttons or enter these credentials:
 
 ## 🔍 SQL Queries for Verification & Demonstration
 
-You can run these queries directly in MySQL to demonstrate live database persistence:
+You can run these queries directly in PostgreSQL to demonstrate live database persistence:
 
 ```sql
 USE student_task_management;
