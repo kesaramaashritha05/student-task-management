@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 // Spring Boot Backend Base URL configured via Vite Environment Variable
-// If VITE_API_URL is provided (e.g. 'https://my-backend.onrender.com'), it will be used.
-// Otherwise, it defaults to 'http://localhost:8080'.
-const RAW_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+// Deployed Render backend URL: https://student-task-management-2.onrender.com
+const RAW_URL = import.meta.env.VITE_API_URL || 'https://student-task-management-2.onrender.com';
 const CLEAN_URL = RAW_URL.replace(/\/+$/, ''); // Remove trailing slash if present
 export const API_BASE_URL = CLEAN_URL.endsWith('/api') ? CLEAN_URL : `${CLEAN_URL}/api`;
 
